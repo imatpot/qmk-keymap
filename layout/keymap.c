@@ -52,10 +52,6 @@ enum planck_keycodes {
     CH_RSPC,
 };
 
-enum tap_dance_codes {
-    SHIFT_CAPS,
-};
-
 enum planck_layers {
     _QWERTZ,
     _SHIFT,
@@ -74,16 +70,16 @@ enum planck_layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTZ] = LAYOUT_planck_grid(
         KC_ESCAPE,      KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           CH_Z,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSPACE,
-        KC_TAB,         KC_A,           KC_S,           KC_D,           KC_F,           KC_G,           KC_H,           KC_J,           KC_K,           KC_L,           KC_SLASH,       KC_ENTER,
-        MO(1),          CH_Y,           KC_X,           KC_C,           KC_V,           KC_B,           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SCOLON,      KC_QUOTE,
+        KC_TAB,         KC_A,           KC_S,           KC_D,           KC_F,           KC_G,           KC_H,           KC_J,           KC_K,           KC_L,           CH_SLSH,        KC_ENTER,
+        MO(1),          CH_Y,           KC_X,           KC_C,           KC_V,           KC_B,           KC_N,           KC_M,           CH_COMM,        CH_DOT,         CH_SCLN,        CH_QUOT,
         KC_LCTRL,       KC_LGUI,        KC_LALT,        TT(8),          LOWER,          KC_SPACE,       KC_NO,          RAISE,          KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT
     ),
 
     [_SHIFT] = LAYOUT_planck_grid(
-        KC_TRANSPARENT, S(KC_Q),        S(KC_W),        S(KC_E),        S(KC_R),        S(KC_T),        S(CH_Z),        S(KC_U),        S(KC_I),        S(KC_O),        S(KC_P),        KC_TRANSPARENT,
-        KC_TRANSPARENT, S(KC_A),        S(KC_S),        S(KC_D),        S(KC_F),        S(KC_G),        S(KC_H),        S(KC_J),        S(KC_K),        S(KC_L),        KC_SLASH,       KC_TRANSPARENT,
-        KC_TRANSPARENT, S(CH_Y),        S(KC_X),        S(KC_C),        S(KC_V),        S(KC_B),        S(KC_N),        S(KC_M),        KC_COMMA,       KC_DOT,         KC_SCOLON,      KC_QUOTE,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+        S(KC_ESCAPE),   S(KC_Q),        S(KC_W),        S(KC_E),        S(KC_R),        S(KC_T),        S(CH_Z),        S(KC_U),        S(KC_I),        S(KC_O),        S(KC_P),        KC_DELETE,
+        S(KC_TAB),      S(KC_A),        S(KC_S),        S(KC_D),        S(KC_F),        S(KC_G),        S(KC_H),        S(KC_J),        S(KC_K),        S(KC_L),        CH_QUES,        S(KC_ENTER),
+        KC_NO,          S(CH_Y),        S(KC_X),        S(KC_C),        S(KC_V),        S(KC_B),        S(KC_N),        S(KC_M),        CH_LABK,        CH_RABK,        CH_COLN,        CH_DQUO,
+        S(KC_LCTRL),    S(KC_LGUI),     S(KC_LALT),     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_TRANSPARENT, S(KC_LEFT),     S(KC_DOWN),     S(KC_UP),       S(KC_RIGHT)
     ),
 
     [_CAPS] = LAYOUT_planck_grid(
@@ -95,8 +91,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_LOWER] = LAYOUT_planck_grid(
         KC_TRANSPARENT, KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        KC_TRANSPARENT, CH_PLUS,        CH_AT,          CH_PARA,        CH_CELA,        CH_PERC,        CH_AMPR,        CH_PIPE,        CH_RING,        CH_EQL,         CH_EXLM,        KC_TRANSPARENT,
+        KC_TRANSPARENT, CH_LPRN,        CH_RPRN,        CH_LBRC,        CH_RBRC,        CH_LCBR,        CH_RCBR,        CH_DLR,         CH_EURO,        CH_CENT,        CH_MINS,        KC_BSLASH,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
     ),
 
@@ -108,9 +104,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_RAISE] = LAYOUT_planck_grid(
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT,
+        KC_TRANSPARENT, KC_NO,          KC_NO,          CH_CELA,        KC_NO,          KC_NO,          KC_NO,          CH_DIER,        CH_ACUT,        CH_GRV,         CH_CARR,        CH_TILD,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
     ),
 
@@ -175,13 +171,13 @@ void set_layer_color(int layer) {
             .s = pgm_read_byte(&ledmap[layer][i][1]),
             .v = pgm_read_byte(&ledmap[layer][i][2]),
         };
-      if (!hsv.h && !hsv.s && !hsv.v) {
-          rgb_matrix_set_color( i, 0, 0, 0 );
-      } else {
-          RGB rgb = hsv_to_rgb( hsv );
-          float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
-          rgb_matrix_set_color( i, f * rgb.r, f * rgb.g, f * rgb.b );
-      }
+        if (!hsv.h && !hsv.s && !hsv.v) {
+            rgb_matrix_set_color( i, 0, 0, 0 );
+        } else {
+            RGB rgb = hsv_to_rgb( hsv );
+            float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
+            rgb_matrix_set_color( i, f * rgb.r, f * rgb.g, f * rgb.b );
+        }
     }
 }
 
@@ -263,21 +259,21 @@ void encoder_update(bool clockwise) {
         }
     } else {
         if (clockwise) {
-        #ifdef MOUSEKEY_ENABLE
-            register_code(KC_MS_WH_DOWN);
-            unregister_code(KC_MS_WH_DOWN);
-        #else
-            register_code(KC_PGDN);
-            unregister_code(KC_PGDN);
-        #endif
+            #ifdef MOUSEKEY_ENABLE
+                register_code(KC_MS_WH_DOWN);
+                unregister_code(KC_MS_WH_DOWN);
+            #else
+                register_code(KC_PGDN);
+                unregister_code(KC_PGDN);
+            #endif
         } else {
-        #ifdef MOUSEKEY_ENABLE
-            register_code(KC_MS_WH_UP);
-            unregister_code(KC_MS_WH_UP);
-        #else
-            register_code(KC_PGUP);
-            unregister_code(KC_PGUP);
-        #endif
+            #ifdef MOUSEKEY_ENABLE
+                register_code(KC_MS_WH_UP);
+                unregister_code(KC_MS_WH_UP);
+            #else
+                register_code(KC_PGUP);
+                unregister_code(KC_PGUP);
+            #endif
         }
     }
 }
@@ -300,11 +296,11 @@ void matrix_scan_user(void) {
 
 bool music_mask_user(uint16_t keycode) {
     switch (keycode) {
-    case RAISE:
-    case LOWER:
-        return false;
-    default:
-        return true;
+        case RAISE:
+        case LOWER:
+            return false;
+        default:
+            return true;
     }
 }
 #endif
