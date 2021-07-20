@@ -7,6 +7,7 @@ git clone git@github.com:zsa/qmk_firmware.git
 ln -s qmk_firmware/shell.nix shell.nix
 echo "eval \"\$(lorri direnv)"\" > .envrc
 direnv allow
+lorri shell
 
 cd qmk_firmware
 
