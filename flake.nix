@@ -2,15 +2,14 @@
   description = "Personal QMK keyboard layout for Ergodox' Planck EZ";
 
   inputs = {
-    nixpkgs = {
-      url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    };
-    utils = {
-      url = "github:numtide/flake-utils";
-    };
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
+    utils.url = "github:numtide/flake-utils";
+
     firmware = {
-      url = "github:zsa/qmk_firmware";
       flake = false;
+      url = "https://github.com/zsa/qmk_firmware.git";
+      type = "git";
+      submodules = true;
     };
   };
 
