@@ -1,25 +1,10 @@
 #include QMK_KEYBOARD_H
+#include "eeprom.h"
+#include "keymap_swiss_de.h"
+
 #ifdef AUDIO_ENABLE
 #include "muse.h"
 #endif
-#include "eeprom.h"
-#include "keymap_german_ch.h"
-
-#define KC_MAC_UNDO LGUI(KC_Z)
-#define KC_MAC_CUT LGUI(KC_X)
-#define KC_MAC_COPY LGUI(KC_C)
-#define KC_MAC_PASTE LGUI(KC_V)
-#define KC_PC_UNDO LCTL(KC_Z)
-#define KC_PC_CUT LCTL(KC_X)
-#define KC_PC_COPY LCTL(KC_C)
-#define KC_PC_PASTE LCTL(KC_V)
-#define ES_LESS_MAC KC_GRAVE
-#define ES_GRTR_MAC LSFT(KC_GRAVE)
-#define ES_BSLS_MAC ALGR(KC_6)
-#define NO_PIPE_ALT KC_GRAVE
-#define NO_BSLS_ALT KC_EQUAL
-#define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc)
-#define BP_NDSH_MAC ALGR(KC_8)
 
 enum planck_keycodes {
     RGB_SLD = EZ_SAFE_RANGE,
@@ -42,16 +27,16 @@ enum planck_layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTZ] = LAYOUT_planck_grid(
-        KC_ESCAPE,      KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           CH_Z,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSPACE,
+        KC_ESCAPE,      KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           CH_Z,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSPC,
         KC_TAB,         KC_A,           KC_S,           KC_D,           KC_F,           KC_G,           KC_H,           KC_J,           KC_K,           KC_L,           CH_QUOT,        KC_ENTER,
-        KC_LSHIFT,      CH_Y,           KC_X,           KC_C,           KC_V,           KC_B,           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         CH_MINS,        CH_DLR,
-        KC_LCTRL,       KC_LGUI,        KC_LALT,        MO(6),          LOWER,          KC_SPACE,       KC_NO,          RAISE,          KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT
+        KC_LSFT,        CH_Y,           KC_X,           KC_C,           KC_V,           KC_B,           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         CH_MINS,        CH_DLR,
+        KC_LCTL,        KC_LGUI,        KC_LALT,        MO(6),          LOWER,          KC_SPACE,       KC_NO,          RAISE,          KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT
     ),
 
     [_LOWER] = LAYOUT_planck_grid(
-        CH_PARA,        KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRANSPARENT,
-        KC_DELETE,      CH_PLUS,        CH_AT,          CH_PAST,        CH_CELA,        CH_PERC,        CH_AMPR,        CH_PIPE,        CH_HASH,        CH_EQL,         CH_SLSH,        KC_TRANSPARENT,
-        KC_TRANSPARENT, CH_LPRN,        CH_RPRN,        CH_LBRC,        CH_RBRC,        CH_LCBR,        CH_RCBR,        CH_BSLS,        CH_LESS,        CH_MORE,        CH_EXLM,        CH_DQOT,
+        CH_SECT,        KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRANSPARENT,
+        KC_DELETE,      CH_PLUS,        CH_AT,          CH_ASTR,        CH_CCED,        CH_PERC,        CH_AMPR,        CH_PIPE,        CH_HASH,        CH_EQL,         CH_SLSH,        KC_TRANSPARENT,
+        KC_TRANSPARENT, CH_LPRN,        CH_RPRN,        CH_LBRC,        CH_RBRC,        CH_LCBR,        CH_RCBR,        CH_BSLS,        CH_LABK,        CH_RABK,        CH_EXLM,        CH_DQUO,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
     ),
 
@@ -65,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_RAISE] = LAYOUT_planck_grid(
         KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,
         KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT,
-        KC_TRANSPARENT, KC_PSCREEN,     KC_HOME,        KC_END,         KC_INSERT,      KC_PGDOWN,      KC_PGUP,        CH_DIER,        CH_ACUT,        CH_GRV,         CH_CARR,        CH_TILD,
+        KC_TRANSPARENT, KC_PSCR,        KC_HOME,        KC_END,         KC_INSERT,      KC_PGDN,        KC_PGUP,        CH_DIAE,        CH_ACUT,        CH_GRV,         CH_CIRC,        CH_TILD,
         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
     ),
 
@@ -86,12 +71,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAVIGATE] = LAYOUT_planck_grid(
         TO(0),          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          TO(5),
         KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-        KC_CAPSLOCK,    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
+        KC_CAPS,        KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
         KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO
     ),
 };
 
-extern bool g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
 
 void keyboard_post_init_user(void) {
@@ -165,8 +149,10 @@ bool caps_lock_on(void) {
     return host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK);
 }
 
-void rgb_matrix_indicators_user(void) {
-    if (g_suspend_state || keyboard_config.disable_layer_led) { return; }
+bool rgb_matrix_indicators_user(void) {
+    if (keyboard_config.disable_layer_led) {
+        return false;
+    }
 
     int layer = biton32(layer_state);
 
@@ -196,6 +182,8 @@ void rgb_matrix_indicators_user(void) {
             }
             break;
     }
+
+    return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -257,7 +245,6 @@ void encoder_update(bool clockwise) {
 }
 
 void matrix_scan_user(void) {
-#ifdef AUDIO_ENABLE
     if (muse_mode) {
         if (muse_counter == 0) {
             uint8_t muse_note = muse_offset + SCALE[muse_clock_pulse()];
@@ -269,7 +256,6 @@ void matrix_scan_user(void) {
         }
         muse_counter = (muse_counter + 1) % muse_tempo;
     }
-#endif
 }
 
 bool music_mask_user(uint16_t keycode) {
@@ -283,6 +269,6 @@ bool music_mask_user(uint16_t keycode) {
 }
 #endif
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }

@@ -7,7 +7,7 @@
 
     firmware = {
       flake = false;
-      url = "https://github.com/zsa/qmk_firmware.git";
+      url = "https://github.com/qmk/qmk_firmware.git";
       type = "git";
       submodules = true;
     };
@@ -15,28 +15,48 @@
 
   outputs = inputs @ { self, nixpkgs, utils, firmware }: utils.lib.eachDefaultSystem (system:
     let
-      pname = "planck";
+      pname = "qmk-layout";
       version = "0.0.0";
+      keyboard = "planck/ez/glow";
+      keymap = "lucifer";
       pkgs = nixpkgs.legacyPackages.${system};
     in
-    {
-      packages.default = pkgs.stdenv.mkDerivation {
+    rec {
+      packages.default = pkgs.stdenv.mkDerivation rec {
         inherit pname version;
 
         src = ./.;
 
         # Environment
         SKIP_GIT = true;
+        BUILD_DIR = ./.;
 
-        buildInputs = with pkgs; [ qmk ];
+        buildInputs = [
+          pkgs.qmk
+        ];
 
-        buildPhase = ''
-          cp -r --no-preserve=all ${firmware} qmk
-          cp -r layout qmk/keyboards/planck/ez/glow/keymaps/${pname}
+        qmkExe = "${pkgs.qmk}/bin/qmk";
+        binFile = "${builtins.replaceStrings [ "/" ] [ "_" ] keyboard}_${keymap}.bin";
 
-          chmod -R 777 qmk # I am so sorry
+        # TODO: find a way to temporarily set user.qmk_home, or use a specific firmware path because this overwrites the globally set user.qmk_home
+        flashPhase = ''
+          ${qmkExe} setup -y --home $out/qmk_firmware
+          ${qmkExe} flash $out/qmk_firmware/.build/${binFile}
+        '';
 
-          make --directory=qmk planck/ez/glow:${pname}
+        installPhase = ''
+          mkdir -p $out/bin
+
+          cp -r --no-preserve=all ${firmware} $out/qmk_firmware
+
+          mkdir -p $out/qmk_firmware/keyboards/${keyboard}/keymaps
+          cp -r --no-preserve=all layout $out/qmk_firmware/keyboards/${keyboard}/keymaps/${keymap}
+
+          find $out -name "*.sh" -exec chmod +x {} +
+          make -C $out/qmk_firmware ${keyboard}:${keymap}
+
+          echo "${flashPhase}" > $out/bin/${pname}
+          chmod +x $out/bin/${pname}
         '';
       };
     }

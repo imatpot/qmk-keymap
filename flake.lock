@@ -3,19 +3,19 @@
     "firmware": {
       "flake": false,
       "locked": {
-        "lastModified": 1666935820,
-        "narHash": "sha256-F40p0MGFrX8bnf+f5dOmuWKzenw7x7AECwz0DXHj40Y=",
-        "ref": "refs/heads/firmware21",
-        "rev": "d9f575fa86ca10b990958d4e677c6a0a387dc7c3",
-        "revCount": 22216,
+        "lastModified": 1671819263,
+        "narHash": "sha256-WJR1kL6LBkB10WSo9Sw2y1ptjrjuZFkLMOeClaXRZyo=",
+        "ref": "refs/heads/master",
+        "rev": "b56c0fa67484b965f7efdbcc46e2e7c2571e367a",
+        "revCount": 23343,
         "submodules": true,
         "type": "git",
-        "url": "https://github.com/zsa/qmk_firmware.git"
+        "url": "https://github.com/qmk/qmk_firmware.git"
       },
       "original": {
         "submodules": true,
         "type": "git",
-        "url": "https://github.com/zsa/qmk_firmware.git"
+        "url": "https://github.com/qmk/qmk_firmware.git"
       }
     },
     "nixpkgs": {
