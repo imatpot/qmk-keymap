@@ -41,7 +41,8 @@
         # TODO: find a way to temporarily set user.qmk_home, or use a specific firmware path because this overwrites the globally set user.qmk_home
         flashPhase = ''
           ${qmkExe} setup -y --home $out/qmk_firmware
-          ${qmkExe} flash $out/qmk_firmware/.build/${binFile}
+          # ${qmkExe} flash -b
+          ${qmkExe} flash $out/qmk_firmware/.build/${binFile} --bootloader dfu-util
         '';
 
         installPhase = ''
