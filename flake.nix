@@ -15,48 +15,46 @@
 
   outputs = inputs @ { self, nixpkgs, utils, firmware }: utils.lib.eachDefaultSystem (system:
     let
-      pname = "qmk-layout";
-      version = "0.0.0";
+      pname = "qmk-keymap";
+      version = "1.0.0";
       keyboard = "planck/ez/glow";
       keymap = "lucifer";
+      firmwareDir = "lib/qmk_firmware";
+      keymapDir = "${firmwareDir}/keyboards/${keyboard}/keymaps";
+      keymapFile = "${builtins.replaceStrings ["/"] ["_"] keyboard}_${keymap}.bin";
       pkgs = nixpkgs.legacyPackages.${system};
+      qmkExe = "${pkgs.qmk}/bin/qmk";
     in
-    rec {
-      packages.default = pkgs.stdenv.mkDerivation rec {
+    {
+      packages.default = pkgs.stdenv.mkDerivation {
         inherit pname version;
 
         src = ./.;
+        nativeBuildInputs = with pkgs; [ qmk ];
 
-        # Environment
         SKIP_GIT = true;
         BUILD_DIR = ./.;
 
-        buildInputs = [
-          pkgs.qmk
-        ];
-
-        qmkExe = "${pkgs.qmk}/bin/qmk";
-        binFile = "${builtins.replaceStrings [ "/" ] [ "_" ] keyboard}_${keymap}.bin";
-
-        # TODO: find a way to temporarily set user.qmk_home, or use a specific firmware path because this overwrites the globally set user.qmk_home
-        flashPhase = ''
-          ${qmkExe} setup -y --home $out/qmk_firmware
-          # ${qmkExe} flash -b
-          ${qmkExe} flash $out/qmk_firmware/.build/${binFile} --bootloader dfu-util
-        '';
-
         installPhase = ''
-          mkdir -p $out/bin
+          mkdir -p $out/{bin,lib,share}
 
-          cp -r --no-preserve=all ${firmware} $out/qmk_firmware
+          # Copy keymap into the firmware
 
-          mkdir -p $out/qmk_firmware/keyboards/${keyboard}/keymaps
-          cp -r --no-preserve=all layout $out/qmk_firmware/keyboards/${keyboard}/keymaps/${keymap}
+          cp -r --no-preserve=all ${firmware} $out/${firmwareDir}
+          mkdir -p $out/${keymapDir}
+          cp -r --no-preserve=all keymap $out/${keymapDir}/${keymap}
+
+          # Build the layout
 
           find $out -name "*.sh" -exec chmod +x {} +
-          make -C $out/qmk_firmware ${keyboard}:${keymap}
+          make -C $out/${firmwareDir} ${keyboard}:${keymap}
+          ln -s $out/${firmwareDir}/.build/${keymapFile} $out/share/${keymapFile}
 
-          echo "${flashPhase}" > $out/bin/${pname}
+          # Create the flash script
+          # TODO: find a way to temporarily set user.qmk_home or use a specific firmware path because this overwrites the globally set user.qmk_home
+
+          echo "${qmkExe} setup --yes --home $out/${firmwareDir}" >> $out/bin/${pname}
+          echo "${qmkExe} flash $out/share/${keymapFile} --bootloader dfu-util" >> $out/bin/${pname}
           chmod +x $out/bin/${pname}
         '';
       };
