@@ -1,5 +1,5 @@
 {
-  description = "Personal QMK keyboard layout for Ergodox' Planck EZ";
+  description = "Teapot's QMK keymaps for Ergodox' Planck EZ";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
@@ -13,29 +13,25 @@
     };
   };
 
-  outputs = inputs @ { self, nixpkgs, utils, firmware }: utils.lib.eachDefaultSystem (system:
-    let
-      keyboard = "planck/ez/glow";
-      pkgs = nixpkgs.legacyPackages.${system};
-      qmkExe = "${pkgs.qmk}/bin/qmk";
-    in
-    rec {
-      packages = rec {
-        cerberus = mkKeymap {
-          keymap = "cerberus";
-          version = "1.0.0";
-        };
-
-        lucifer = mkKeymap {
-          keymap = "lucifer";
-          version = "1.0.0";
-        };
-
-        default = cerberus;
+  outputs = { self, nixpkgs, utils, firmware }: utils.lib.eachDefaultSystem (system: rec {
+    packages = {
+      cerberus = lib.mkKeymap {
+        keymap = "cerberus";
+        version = "1.0.0";
       };
 
+      lucifer = lib.mkKeymap {
+        keymap = "lucifer";
+        version = "0.1.0";
+      };
+
+      default = packages.cerberus;
+    };
+
+    lib = {
       mkKeymap = { keymap, version }:
         let
+          pkgs = nixpkgs.legacyPackages.${system};
           pname = "qmk-keymap-${keymap}";
         in
         pkgs.stdenv.mkDerivation {
@@ -49,6 +45,8 @@
 
           installPhase =
             let
+              keyboard = "planck/ez/glow";
+              qmkExe = "${pkgs.qmk}/bin/qmk";
               firmwareDir = "lib/qmk_firmware";
               keyboardDir = "${firmwareDir}/keyboards/${keyboard}";
               keymapBin = "${builtins.replaceStrings ["/"] ["_"] keyboard}_${keymap}.bin";
@@ -56,13 +54,13 @@
             ''
               mkdir -p $out/{bin,lib,share}
 
-              # Copy keymap into the firmware
+              # Copy keymaps into the firmware
 
               cp -r --no-preserve=all ${firmware} $out/${firmwareDir}
               mkdir -p $out/${keyboardDir}
               cp -r --no-preserve=all keymaps $out/${keyboardDir}
 
-              # Build the layout
+              # Build the selected keymap
 
               find $out -name "*.sh" -exec chmod +x {} +
               make -C $out/${firmwareDir} ${keyboard}:${keymap}
@@ -76,6 +74,6 @@
               chmod +x $out/bin/${pname}
             '';
         };
-    }
-  );
+    };
+  });
 }
