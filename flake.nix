@@ -1,5 +1,5 @@
 {
-  description = "Teapot's QMK keymaps for Ergodox' Planck EZ";
+  description = "Personal QMK keymaps for Ergodox' Planck EZ";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
