@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CH_SECT,        KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRANSPARENT,
         KC_DELETE,      CH_PLUS,        CH_AT,          CH_ASTR,        CH_CCED,        CH_PERC,        CH_AMPR,        CH_PIPE,        CH_HASH,        CH_EQL,         CH_SLSH,        KC_TRANSPARENT,
         KC_TRANSPARENT, CH_LPRN,        CH_RPRN,        CH_LBRC,        CH_RBRC,        CH_LCBR,        CH_RCBR,        CH_BSLS,        CH_LABK,        CH_RABK,        CH_EXLM,        CH_DQUO,
-        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+        KC_TRANSPARENT, KC_TRANSPARENT, KC_RALT,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
     ),
 
     [_BASE] = LAYOUT_planck_grid(
