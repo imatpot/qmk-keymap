@@ -4,10 +4,10 @@ Personal QMK keymaps for Ergodox' [Planck EZ](https://ergodox-ez.com/pages/planc
 
 ## Keymaps
 
-| Keymap     | Status             |
-|:-----------|:-------------------|
-| `cerberus` | 🔥 Actively in use |
-| `lucifer`  | 🛠 Work in progess |
+| Keymap                         | Status             |
+|:-------------------------------|:-------------------|
+| [`cerberus`](keymaps/cerberus) | 🔥 Actively in use |
+| [`lucifer`](keymaps/lucifer)   | 🛠 Work in progess |
 
 ## Usage
 
