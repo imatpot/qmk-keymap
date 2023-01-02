@@ -17,7 +17,7 @@
     packages = {
       cerberus = lib.mkKeymap {
         keymap = "cerberus";
-        version = "1.1.0";
+        version = "1.2.0";
       };
 
       lucifer = lib.mkKeymap {
