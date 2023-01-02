@@ -44,6 +44,7 @@ QMK flashing is currently not supported on WSL despite what their [FAQ](https://
 ### Apple Silicon
 
 QMK is currently broken on Apple Silicon processors. Install Rosetta on your system and pass override the system of your Nix command.
+
 ```
 $ softwareupdate --install-rosetta --agree-to-license
 $ nix run --system x86_64-darwin
