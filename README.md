@@ -6,8 +6,8 @@ Personal QMK keymaps for Ergodox' [Planck EZ](https://ergodox-ez.com/pages/planc
 
 | Keymap                         | Status             |
 |:-------------------------------|:-------------------|
-| [`cerberus`](keymaps/cerberus) | 🔥 Actively in use |
-| [`lucifer`](keymaps/lucifer)   | 🛠 Work in progess |
+| [`lucifer`](keymaps/lucifer)   | ✨ Actively in use |
+| [`cerberus`](keymaps/cerberus) | ⛔ Deprecated      |
 
 ## Usage
 
