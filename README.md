@@ -1,6 +1,6 @@
 # QMK keymaps
 
-Personal QMK keymaps for Ergodox' [Planck EZ](https://ergodox-ez.com/pages/planck)
+Personal [QMK](https://qmk.fm) keymaps for Ergodox' [Planck EZ](https://ergodox-ez.com/pages/planck)
 
 ## Keymaps
 
@@ -32,6 +32,14 @@ $ nix build github:imatpot/qmk-keymaps#<keymap>
 ## Disclaimers
 
 There's a few things to note about using these keymaps.
+
+### Disk space
+
+The script requires the [QMK](https://qmk.fm) firmware to be placed in the Nix store with each derivation. The firmware is rather chonky, so make sure to clean up after you're tinkering.
+
+```
+$ nix-collect-garbage -d
+```
 
 ### QMK home
 
