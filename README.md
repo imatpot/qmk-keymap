@@ -4,14 +4,14 @@ Personal [QMK](https://qmk.fm) keymaps for Ergodox' [Planck EZ](https://ergodox-
 
 ## Keymaps
 
-| Keymap                         | Status             |
-|:-------------------------------|:-------------------|
+| Keymap                         | Status            |
+|:-------------------------------|:------------------|
 | [`lucifer`](keymaps/lucifer)   | ✨ Actively in use |
 | [`cerberus`](keymaps/cerberus) | ⛔ Deprecated      |
 
 ## Usage
 
-The entire compilation and flashing process is being managed via [Nix](https://nixos.org). Replace `<keymap>` with the name of the keymap you want to use. If omitted, the default (`cerberus`) will be used. Since the repository is a [Flake](https://nixos.wiki/wiki/Flakes), you can run all commands either in a local clone or directly from the commandline without cloning anything.
+The entire compilation and flashing process is being managed via [Nix](https://nixos.org). Replace `<keymap>` with the name of the keymap you want to use. If omitted, the default (`lucifer`) will be used. Since the repository is a [Flake](https://nixos.wiki/wiki/Flakes), you can run all commands either in a local clone or directly from the commandline without cloning anything.
 
 To compile and flash, use `nix run`:
 
